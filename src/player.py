@@ -9,11 +9,28 @@ class Player(pg.sprite.Sprite):
     
     def __init__(self):
         pg.sprite.Sprite.__init__(self)
-        self.image = pg.image.load(os.path.join(absolute_path, "sprite_images/player.png"))
-        self.image = pg.transform.scale(self.image, (32, 32))
+        self.original_image = pg.image.load(os.path.join(absolute_path, "sprite_images/player.png"))
+        self.original_image = pg.transform.scale(self.original_image, (32, 32))
+        self.image = self.original_image
         self.rect = self.image.get_rect()
         self.rect.center = [SCREEN_WIDTH/2, SCREEN_HEIGHT/2]  
         self.direction = (0, -1)
+    
+    @property
+    def direction(self):
+        return self._direction
+
+    @direction.setter
+    def direction(self, direction):
+        self._direction = direction
+        if direction == (0, -1):
+            self.image = self.original_image
+        elif direction == (0, 1):
+            self.image = pg.transform.rotate(self.original_image, 180)
+        elif direction == (-1, 0):
+            self.image = pg.transform.rotate(self.original_image, 90)
+        elif direction == (1, 0):
+            self.image = pg.transform.rotate(self.original_image, -90)
 
 class Shot(pg.sprite.Sprite):
     speed = 20

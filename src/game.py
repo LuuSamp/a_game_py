@@ -8,17 +8,17 @@ import random
 # Score and other variables
 score = 0
 
-def input_handler(event, shots):
+def input_handler(event, shots, player):
     '''
     Function to hadle player input
     '''
-    if event.key == K_UP: direction = (0, -1)
-    elif event.key == K_DOWN: direction = (0, 1)
-    elif event.key == K_LEFT: direction = (-1, 0)
-    elif event.key == K_RIGHT: direction = (1, 0)
+    if event.key == K_UP: player.direction = (0, -1)
+    elif event.key == K_DOWN: player.direction = (0, 1)
+    elif event.key == K_LEFT: player.direction = (-1, 0)
+    elif event.key == K_RIGHT: player.direction = (1, 0)
     else: return
 
-    shots.add(Shot(direction))
+    shots.add(Shot(player.direction))
 
 
 def shot_collision(shots, enemies):
@@ -60,7 +60,7 @@ def main():
         # Event handler
         for event in pg.event.get():
             if event.type == KEYDOWN:
-                input_handler(event, shots)
+                input_handler(event, shots, player)
             if event.type == QUIT: 
                 pg.quit()
                 print(f"Final score: {score}")
