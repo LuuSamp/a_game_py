@@ -4,6 +4,7 @@ from game_settings import *
 from player import Player, Shot
 from enemy import Enemy
 import random
+import os
 
 # Score and other variables
 score = 0
@@ -35,6 +36,8 @@ def enemy_collision(player, enemies):
         player.kill()
 
 def main():
+    
+    absolute_path = os.path.dirname(__file__)
 
     pg.init()
 
@@ -86,7 +89,10 @@ def main():
         player_group.draw(screen)
         enemies.draw(screen)
         shots.draw(screen)
-
+        #screen.draw.text("Score: " + str(score), (10, 10), color = (255, 255, 255), fontsize = 30)
+        font = pg.font.Font(os.path.join(absolute_path, "font", "PublicPixel-z84yD.ttf"), 20)
+        scoretext = font.render("Score = "+str(score), 1, (0,0,0))
+        screen.blit(scoretext, (5, 10))
         pg.display.update()
 
         # Cap framerate
