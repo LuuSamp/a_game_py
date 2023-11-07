@@ -89,10 +89,15 @@ def main():
         player_group.draw(screen)
         enemies.draw(screen)
         shots.draw(screen)
-        #screen.draw.text("Score: " + str(score), (10, 10), color = (255, 255, 255), fontsize = 30)
-        font = pg.font.Font(os.path.join(absolute_path, "font", "PublicPixel-z84yD.ttf"), 20)
-        scoretext = font.render("Score = "+str(score), 1, (0,0,0))
+        
+        scorefont = pg.font.Font(os.path.join(absolute_path, "font", "PublicPixel-z84yD.ttf"), 20)
+        scoretext = scorefont.render("Score: "+str(score), 1, (0,0,0))
         screen.blit(scoretext, (5, 10))
+        
+        fps_font = pg.font.Font(os.path.join(absolute_path, "font", "PublicPixel-z84yD.ttf"), 10)
+        fpstext = fps_font.render("FPS: " +str(int(clock.get_fps())), 1, (0,0,0))
+        screen.blit(fpstext, (700, 10))
+        
         pg.display.update()
 
         # Cap framerate
